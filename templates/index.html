@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Job Finder Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Job Finder Dashboard</h1>
+
+  <form method="get" action="/">
+    <input type="text" name="q" placeholder="Search jobs..." value="{{ query }}">
+    <button type="submit">Search</button>
+  </form>
+
+  <a href="/fetch"><button>🔍 Fetch Latest Jobs</button></a>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Company</th>
+        <th>Source</th>
+        <th>Date Posted</th>
+        <th>Apply</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for job in jobs %}
+      <tr>
+        <td>{{ job[0] }}</td>
+        <td>{{ job[1] }}</td>
+        <td>{{ job[2] }}</td>
+        <td>{{ job[4] }}</td>
+        <td><a href="{{ job[3] }}" target="_blank">Apply</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
