@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response, redirect, url_for
 from resume_parser import extract_skills
-from job_scraper import scrape_indeed, scrape_naukri, scrape_linkedin
+from job_scraper import scrape_indeed, scrape_naukri, scrape_linkedin, scrape_shine, scrape_timesjobs
 from telegram_notifier import send_telegram
 from apscheduler.schedulers.background import BackgroundScheduler
 import json, os, atexit, time
@@ -18,10 +18,7 @@ def check_auth(u, p):
     return u == USERNAME and p == PASSWORD
 
 def authenticate():
-    return Response(
-        'Login required', 401,
-        {'WWW-Authenticate': 'Basic realm="Login Required"'}
-    )
+    return Response('Login required', 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 @app.before_request
 def require_auth():
@@ -46,7 +43,13 @@ def fetch_jobs():
     jobs = []
     try:
         print("[INFO] Fetching jobs...")
-        for scraper_name, scraper_func in [("Indeed", scrape_indeed), ("Naukri", scrape_naukri), ("LinkedIn", scrape_linkedin)]:
+        for scraper_name, scraper_func in [
+            ("Indeed", scrape_indeed), 
+            ("Naukri", scrape_naukri), 
+            ("LinkedIn", scrape_linkedin),
+            ("Shine", scrape_shine),
+            ("TimesJobs", scrape_timesjobs)
+        ]:
             try:
                 result = scraper_func(skills, location)
                 print(f"[INFO] {scraper_name}: fetched {len(result)} jobs")
