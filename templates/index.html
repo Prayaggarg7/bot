@@ -6,10 +6,21 @@
 </head>
 <body>
 <h1>Job Bot Dashboard</h1>
-<p>Status: {{ status }}</p>
+<p>
+  Status: {{ status }}
+  <a href="{{ url_for('refresh_jobs') }}" style="margin-left:20px; padding:5px 10px; background:#007bff; color:#fff; text-decoration:none; border-radius:4px;">
+    🔄 Refresh Jobs
+  </a>
+</p>
 <table>
   <thead>
-    <tr><th>Title</th><th>Company</th><th>Source</th><th>Posted</th><th>Apply</th></tr>
+    <tr>
+      <th>Title</th>
+      <th>Company</th>
+      <th>Source</th>
+      <th>Posted Date</th>
+      <th>Apply</th>
+    </tr>
   </thead>
   <tbody>
     {% for j in jobs %}
