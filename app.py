@@ -12,7 +12,7 @@ LAST_FETCH_STATUS = "Never fetched"
 
 # ----------------- AUTH CONFIG -----------------
 USERNAME = os.getenv("DASHBOARD_USERNAME", "admin")
-PASSWORD = os.getenv("DASHBOARD_PASSWORD", "password")
+PASSWORD = os.getenv("DASHBOARD_PASSWORD", "$%^Password@123")
 
 def check_auth(u, p):
     return u == USERNAME and p == PASSWORD
