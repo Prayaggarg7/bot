@@ -1,41 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Job Finder Dashboard</title>
+  <title>Job Bot Dashboard</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <h1>Job Finder Dashboard</h1>
-
-  <form method="get" action="/">
-    <input type="text" name="q" placeholder="Search jobs..." value="{{ query }}">
-    <button type="submit">Search</button>
-  </form>
-
-  <a href="/fetch"><button>🔍 Fetch Latest Jobs</button></a>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Company</th>
-        <th>Source</th>
-        <th>Date Posted</th>
-        <th>Apply</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for job in jobs %}
-      <tr>
-        <td>{{ job[0] }}</td>
-        <td>{{ job[1] }}</td>
-        <td>{{ job[2] }}</td>
-        <td>{{ job[4] }}</td>
-        <td><a href="{{ job[3] }}" target="_blank">Apply</a></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<h1>Job Bot Dashboard</h1>
+<p>Status: {{ status }}</p>
+<table>
+  <thead>
+    <tr><th>Title</th><th>Company</th><th>Source</th><th>Posted</th><th>Apply</th></tr>
+  </thead>
+  <tbody>
+    {% for j in jobs %}
+    <tr>
+      <td>{{ j.title }}</td>
+      <td>{{ j.company }}</td>
+      <td>{{ j.source }}</td>
+      <td>{{ j.date_posted }}</td>
+      <td><a href="{{ j.link }}" target="_blank">Apply</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 </body>
 </html>

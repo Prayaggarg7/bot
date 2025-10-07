@@ -1,15 +1,22 @@
-import re
+import os
 from pdfminer.high_level import extract_text
+import re
 
-def extract_skills_from_resume(resume_path):
+def extract_skills(resume_path="resume.pdf"):
+    """
+    Returns list of skills from resume.pdf or from SKILLS env variable.
+    """
+    env_skills = os.getenv("SKILLS")
+    if env_skills:
+        return [s.strip().lower() for s in env_skills.split(",") if s.strip()]
+
+    if not os.path.exists(resume_path):
+        return []
+
     text = extract_text(resume_path).lower()
-
-    # Basic keyword list – you can expand this anytime
     skill_list = [
-        "python", "java", "angular", "spring boot", "sql", "mysql", "mssql",
-        "docker", "kubernetes", "aws", "azure", "react", "typescript", "html",
-        "css", "javascript", "node", "git", "linux", "automation"
+        "python","java","spring boot","sql","mysql","mssql",
+        "docker","kubernetes","aws","azure","node","linux",
+        "git","rest api","hibernate","microservices","ci/cd"
     ]
-
-    found = [skill for skill in skill_list if re.search(r'\b' + re.escape(skill) + r'\b', text)]
-    return list(set(found))
+    return [s for s in skill_list if re.search(r"\b" + re.escape(s) + r"\b", text)]
